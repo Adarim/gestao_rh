@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block l1%}
+<a  class="nav-link" href="{% url 'edit-funcionario'  object.id %}" >Retornar ao Funcionário</a>
+{%endblock%}
+{% block l2%}
+                    <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+{% endblock %}
+{% block title %}Exclusão de Documento{%endblock%}
+{% block main %}
+   Você está certo que quer deletar <br>
+   <h3>  {{ documento.descricao }} </h3><br>
+    Pertencente ao Funcionário
+<h3> {{ user.funcionario.nome }}</h3>
+    <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-danger" >Confirmar</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block l2%}
+<a  class="nav-link"  href="{% url 'list-departamentos'%}" >Retornar a Departamentos</a>
+{%endblock%}
+{% block l3%}
+                    <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+{% endblock %}
+{% block title %}Editando Departamento{%endblock%}
+{% load bootstrap %}
+{% block main %}
+
+    <form method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <button type="submit" class="btn btn-info"  style="background-color:  orange; border-color: lightgray;">Salvar</button>
+    </form>
+{% endblock %}
