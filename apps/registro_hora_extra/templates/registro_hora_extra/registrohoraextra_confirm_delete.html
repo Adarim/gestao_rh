@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block l1%}
+<a  class="nav-link" href="{% url 'list-hora-extra'%}" >Retornar a Banco de Horas</a>
+{%endblock%}
+{% block l2%}
+<a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+{% endblock %}
+{% block title %}Exclusão de Hora Extra{%endblock%}
+{% block main %}
+   Você está certo que quer deletar  <br>
+    <h3> {{ registrohoraextra.motivo }}</h3><br>
+    <h4> de {{ registrohoraextra.funcionario }}</h4>
+<br>
+    <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    </form>
+{% endblock %}

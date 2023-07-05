@@ -1,4 +1,6 @@
 from django.db import models
+from django.urls import reverse
+
 from apps.funcionarios.models import Funcionario
 
 
@@ -9,4 +11,7 @@ class RegistroHoraExtra(models.Model):
 
     def __str__(self):
         return self.motivo
+
+    def get_absolute_url(self):
+        return reverse('list-hora-extra')
 

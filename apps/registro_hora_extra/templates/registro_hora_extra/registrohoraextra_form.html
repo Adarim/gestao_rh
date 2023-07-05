@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block l1%}
+<a  class="nav-link"  href="{% url 'list-hora-extra'%}" >Retornar </a>
+{%endblock%}
+
+
+
+{% block l3%}
+                    <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+{% endblock %}
+{% block title %}Editando Funcionário{%endblock%}
+{% load bootstrap %}
+{% block main %}
+
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <button type="submit" class="btn btn-info" style="background-color:  orange; border-color: lightgray; float: right;">Salvar</button>
+    </form>
+
+
+{%endblock%}

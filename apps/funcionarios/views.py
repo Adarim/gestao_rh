@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from .models import Funcionario
+from .forms import FuncionarioForm
+
 
 class FuncionariosList(ListView):
     model = Funcionario
@@ -14,10 +14,15 @@ class FuncionariosList(ListView):
 
 
 class FuncionarioNovo(CreateView):
-     model = Funcionario
-     fields = ['nome', 'departamentos', 'foto', 'endereco', 'cidade', 'complemento']
+    model = Funcionario
+    form_class = FuncionarioForm
 
-     def form_valid(self, form):
+    def get_form_kwargs(self):
+        kwargs = super(FuncionarioNovo, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+    def form_valid(self, form):
          funcionario = form.save(commit=False)
          funcionario.empresa = self.request.user.funcionario.empresa
          username = funcionario.nome.split(' ')[0] + funcionario.nome.split(' ')[1]
@@ -28,7 +33,13 @@ class FuncionarioNovo(CreateView):
 
 class FuncionarioEdit(UpdateView):
      model = Funcionario
-     fields = ['nome', 'fone', 'departamentos', 'foto', 'endereco', 'cidade', 'complemento']
+     form_class = FuncionarioForm
+
+     def get_form_kwargs(self):
+         kwargs = super(FuncionarioEdit, self).get_form_kwargs()
+         kwargs.update({'user': self.request.user})
+         return kwargs
+
 
 class FuncionarioDelete(DeleteView):
      model = Funcionario

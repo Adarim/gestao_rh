@@ -1,6 +1,5 @@
 from django.urls import path
 from django.conf.urls.static import static
-
 from gestao_rh import settings
 from . views import  FuncionariosList, \
     FuncionarioNovo, \

@@ -1,16 +1,12 @@
 from django.urls import path
-from django.conf.urls.static import static
-
-from gestao_rh import settings
-from . views import  HoraExtraList
-#    FuncionarioNovo, \
- #   FuncionarioEdit,\
- #  FuncionarioDelete
-
+from . views import HoraExtraList,  \
+    HoraExtraNovo,   \
+    HoraExtraEdit,  \
+    HoraExtraDelete
 
 urlpatterns = [
     path("", HoraExtraList.as_view(),  name='list-hora-extra'),
-#    path("novo/", FuncionarioNovo.as_view(),  name='create-funcionario'),
-#    path("editar/<int:pk>/", FuncionarioEdit.as_view(),  name='edit-funcionario'),
- #   path("deletar/<int:pk>/", FuncionarioDelete.as_view(),  name='delete-funcionario'),
+    path("novo/", HoraExtraNovo.as_view(),  name='create-hora-extra'),
+    path("editar/<int:pk>/", HoraExtraEdit.as_view(),  name='edit-hora-extra'),
+    path("deletar/<int:pk>/", HoraExtraDelete.as_view(),  name='delete-hora-extra'),
 ]
