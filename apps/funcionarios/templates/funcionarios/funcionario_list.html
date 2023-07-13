@@ -75,7 +75,8 @@ Funcionários (Lista)
     </tr>
     </tbody>
 </table>
-
+{% empty %}
+<span  style="color: red; font-size: 10px; fon-style: bold;"> Não Existem Funcionários Registrados para esta Empresa</span><br>
     {% endfor %}
 
 {% endblock %}
