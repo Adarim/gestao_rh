@@ -22,12 +22,30 @@ class HoraExtraNovo(CreateView):
         return kwargs
 
 
-class HoraExtraEdit(UpdateView):
+class HoraExtraEdit( UpdateView):
     model = RegistroHoraExtra
     form_class = RegistroHoraExtraForm
+    success_url = reverse_lazy('list-hora-extra')
+
+ #   def get_success_url(self):
+  #      return reverse_lazy('list-hora-extra')
 
     def get_form_kwargs(self):
         kwargs = super(HoraExtraEdit, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
+
+
+
+class HoraExtraEditFunc(UpdateView):
+    model = RegistroHoraExtra
+    form_class = RegistroHoraExtraForm
+
+#    def get_success_url(self):
+ #       return reverse_lazy('detalhe-funcionario', args=[self.object.id])
+
+    def get_form_kwargs(self):
+        kwargs = super(HoraExtraEditFunc, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
 

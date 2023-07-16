@@ -1,45 +1,48 @@
 {% extends 'base.html' %}
 {% block l2%}
-<a  class="nav-link" href="{% url  'create-departamento' %}" >Adicionar Departamento</a>
+<a  class="nav-link" href="{% url  'create-departamento' %}" >+<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person-workspace" viewBox="0 0 16 16">
+  <path d="M4 16s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H4Zm4-5.95a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+  <path d="M2 1a2 2 0 0 0-2 2v9.5A1.5 1.5 0 0 0 1.5 14h.653a5.373 5.373 0 0 1 1.066-2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v9h-2.219c.554.654.89 1.373 1.066 2h.653a1.5 1.5 0 0 0 1.5-1.5V3a2 2 0 0 0-2-2H2Z"/>
+</svg>  Departamento</a>
 {%endblock%}
 {% block l3%}
-                    <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+                    <a class="nav-link" href="{% url 'logout' %}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+  <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+</svg> LogOut</a>
 {% endblock %}
 {% block title %}Departamentos (Lista){%endblock%}
 {% block main %}
      {% for departamento in object_list %}
-     <table style="align-content: center; background-color: #efe5d2;" width="100%">
-      <tbody style="height: 105px; border: 1; border-style: solid; border-color: #edebeb;" >
-        <th><a style="font-size: 18px;" href="{% url  'edit-departamento'  departamento.id %}">
+     <table style="align-content: center;" width="100%">
+      <tbody style="height: 30px; border: 1; border-style: solid; border-color: #fcf9df;" >
+      <tr>
+        <th style="width: 50%">   &nbsp;
+            <a style="color: red; align: BOTTOM; " href="{% url  'delete-departamento'  departamento.id%}"  >
+                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="currentColor" class="bi bi-file-earmark-x" viewBox="0 0 16 16">
+                    <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z"/>
+                     <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                 </svg>
+            </a>
+            <a style="font-size: 15px;" href="{% url  'edit-departamento'  departamento.id %}">
             <span style="font-style: bold; color: gray;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                </svg>
-                    </span> {{ departamento }} <br>
-                <table  style="border-color: #d7c9a3;  border-style: dotted; border-size: 1" border=1 width="99%" >
-                     <tbody  >
-                  <tr style="height: 16px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 9px;'">
-                  <th scope="col" width="35%">&nbsp;Encarregado </th>
-                  <th scope="col" width="60%" >&nbsp;Localização </th>
-                  <th scope="col" width="5%" >&nbsp; </th>
-                </tr>
-                <tr style="height: 12px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #665526;  font-size: 14px;'">
-                  <td>&nbsp;{{ departamento.encarregado }}</td>
-                  <td>&nbsp;{{ departamento.localizacao }}</td>
-        <td style="text-align: center;alt='Excluir Departamento';" scope="col" width="5%">
-            <a style="color: #f94c4c; align: BOTTOM; " href="{% url  'delete-departamento'  departamento.id%}"  >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-            </svg>
+            </span> {{ departamento }}
+            </a><br>
+        </th>
+          <th><span style="align-text: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 12px;'">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+  <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+  <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
+</svg> | {{ departamento.encarregado }}</span></th>
+      </tr>
+      </tbody>
+     </table>
 
-        </td>
-                   </tr>
-              </tbody>
-                </table></th>
-              </tbody>
-            </table>             
-</a>
+
+
 
 
 {% endfor %}

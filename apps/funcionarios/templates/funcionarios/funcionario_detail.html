@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+<script>
+function enviar_imagem(input) {
+  if (input.files && input.files[0]) {
+     var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $('#Tela').attr('src', e.target.result);
+        }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#Arquivo").change(function(){
+  enviar_imagem(this);
+}); </script>
+
+{% if object  %}
+{% block l1%}
+<a  class="nav-link"  href="{% url 'create-documento'  object.id %}" ><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+  <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+  <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+</svg> Documento</a>
+{%endblock%}
+{% block l2%}
+<a  class="nav-link"  href="{% url 'create-hora-extra' %}" ><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
+  <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
+  <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
+</svg> Hora Extra</a>
+{%endblock%}
+{% endif %}
+{% block l3%}
+                    <a class="nav-link" href="{% url 'list-funcionarios'%}"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
+  <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+  <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+</svg> Voltar</a>
+{% endblock %}
+{% block title %}Visualização Funcionário{%endblock%}
+{% load bootstrap %}
+{% block main %}
+        <div class="container" style="text-align: center;">
+            <span  scope="col" width="15%">
+                  {% if funcionario.foto %}
+            <img style="text-align: center; width: 60%" src="{{ funcionario.foto.url }}">
+                    {% else %}
+            <img style="text-align: center; width: 60%" src="/media/documentos/user2.jpg">
+                    {% endif %}</span>     <br>
+            <span class="alert-link" style="text_align: center; font-size: 29px; font-style: bold; color: blue;"> {{ funcionario }}</span><br></div><br>
+        <div class="container">
+            Informações Gerais
+   <table style="align-content: center;" width="100%">
+
+    <tbody style="height: 120px; border: 1; border-style: hidden; border-color: #fcf9df;" >
+     &nbsp;&nbsp;<tr>
+
+        <th scope="col" width="98%">
+                <table  style="border-color: #e2dfc2;  border-style: dotted; border-size: 1" border=1 width="99%" >
+                     <tbody>
+                  <tr style="text-align: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                  <th scope="col" width="25%">Fone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ funcionario.fone }}</span></th>
+                </tr>
+                 <tr style="text-align: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                   <th scope="col"  >Endereço &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ funcionario.endereco }}</span></th>
+                </tr>
+                  <tr style="text-align: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                   <th scope="col"  >Complemento &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ funcionario.complemento }}</span></th>
+                </tr>
+                <tr style="text-align: left; height: 7px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                   <th scope="col" width="100%">Cidade  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ funcionario.cidade }}</span></th>
+                    </tr>
+                  <tr style="text-align: left; height: 7px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                   <th scope="col" width="100%">Departamentos |&nbsp;&nbsp;&nbsp;{% for objs_depto  in object.departamentos.all %}<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ objs_depto.nome }}, </span>{% endfor %}</th>
+                    </tr>
+                 </tr>
+                  <tr style="text-align: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #9eb6cb; font-size: 11px;'">
+                   <th >Usuário &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<span style="height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: gray;; font-size: 13px;'">{{ funcionario.user }}</span>
+                   {% if not object.user.password %}<span style="color: red; font-size: 10px">&nbsp;&nbsp;&nbsp;  Esse usuário não possui uma [Senha] definida , contate o administrador para cadastrar. </span>{% else %} &nbsp;&nbsp;&nbsp; Esse usuário já possui uma [Senha] , contate o administrador para efetuar alteração/reenvio da mesma.{% endif %}</th>
+                </tr>
+                     </tbody>
+               </table>
+         </th>
+
+
+
+    </tr>
+    </tbody>
+</table>
+<br>
+
+{% if object  %}
+Lista dos Documentos Disponíveis<br>
+
+{% for documento in object.documento_set.all %}
+<a style="color: #f94c4c; align-text: left;" href="{% url  'delete-documento'  documento.id %}"  >
+       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+</svg> </a>
+<a  style="align-text: left;" class="alert-link" href="{{ documento.arquivo.url }}"  >
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-view-stacked" viewBox="0 0 16 16">
+  <path d="M3 0h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3zm0 8h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3z"/>
+</svg>
+        {{ documento.descricao }}  &nbsp;&nbsp;  <span style="align-text: left;height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 10px;'">  CAMINHO  | {{ documento.arquivo }}</span>
+<br>
+{% empty %}
+<span  style="color: red; font-size: 10px; fon-style: bold;"> Não Existem Documentos Disponíveis</span><br>
+{% endfor %}
+<a    href="{% url 'create-documento'  object.id %}" >
+<button type="submit" class="btn btn-warning" style="font-size: 12px; background-color:  #99ccff; border-color: lightgray;"><svg xmlns="http://www.w3.org/2000/svg" width="14"  height="14" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+  <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+  <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+</svg> Adicionar Documento</button></a><br>
+<br>
+Lista do Banco de Horas<br>
+ <table style="width: 100%;">
+     <tbody>
+{% for RegistroHoraExtra in object.registrohoraextra_set.all %}
+     <tr>
+         <th style="width: 80%; background-color: #dbe5ed;">
+<a style="color: #f94c4c; align: top;" href="{% url  'delete-hora-extra'  RegistroHoraExtra.id %}"  >
+       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+  <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+</svg> </a>
+<a  class="alert-link" href="{% url  'edit-hora-extra-func'  RegistroHoraExtra.id %}" style="align-text: left;" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-view-stacked" viewBox="0 0 16 16">
+  <path d="M3 0h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3zm0 8h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3z"/>
+</svg>
+        {{ RegistroHoraExtra.motivo }}  </a>
+         </th>&nbsp;
+         <th style="text-align: right; background-color: #d0dfea;">
+             {{ RegistroHoraExtra.horas }}  hs.
+         </th>
+     </tr>
+
+{% empty %}
+<tr>
+<span  style="color: red; font-size: 10px; fon-style: bold;"> Não Existem Banco de Horas Disponível</span></tr>
+{% endfor %}
+
+     <tr>
+         <th style="width: 80%; background-color: #dbe5ed; color: blue;">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                </svg>
+             <span style="color: #f94c4c;">        Total de HORAS-EXTRAS  </span>
+         </th>&nbsp;
+         <th style="text-align: right; background-color: #d0dfea; color: #f94c4c;">
+             {{ object.total_horas_extra }}  hs.
+         </th>
+     </tr>
+
+     </tbody>
+ </table><br>
+<a    href="{% url 'create-hora-extra'  %}" >
+<button type="submit" class="btn btn-warning" style="font-size: 12px; background-color:  #99ccff; border-color: lightgray;"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-stopwatch" viewBox="0 0 16 16">
+  <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
+  <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
+</svg> Adicionar Hora Extra</button></a><br>
+{% endif %}
+{% endblock %}
+        </div>

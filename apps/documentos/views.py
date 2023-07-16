@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DeleteView
 from .models import Documento
 
@@ -16,5 +16,5 @@ class DocumentoNovo(CreateView):
                return self.form_invalid(form)
 
 class DocumentoDelete(DeleteView):
-          model = Documento
-          success_url =  reverse_lazy('list-funcionarios')
+         model = Documento
+         success_url = reverse_lazy("detalhe-funcionario")

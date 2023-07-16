@@ -12,5 +12,5 @@ class Documento(models.Model):
     def __str__(self):
         return self.descricao
 
-    def get_absolute_url(self):
-        return reverse('edit-funcionario', args=[self.pertence.id])
+ #   def get_absolute_url(self):
+ #       return reverse('detalhe-funcionario',  kwargs={"pk": self.object.pertence)

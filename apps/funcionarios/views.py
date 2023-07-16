@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView
 from .models import Funcionario
 from .forms import FuncionarioForm
+from django.shortcuts import get_object_or_404
 
 
 class FuncionariosList(ListView):
@@ -44,3 +45,11 @@ class FuncionarioEdit(UpdateView):
 class FuncionarioDelete(DeleteView):
      model = Funcionario
      success_url =  reverse_lazy('list-funcionarios')
+
+
+class FuncionarioDetalhe(DetailView):
+    model = Funcionario
+
+    def FuncionarioDetalhe_view(request, primary_key):
+        Funcionario = get_object_or_404(Funcionario, pk=primary_key)
+        return render(request, 'funcionario_detail.html', context={'Funcionario': Funcionario})
