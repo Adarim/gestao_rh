@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block l3%}
+                    <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+{% endblock %}
+{% block title %}Lista do Banco de Horas Dinâmica{%endblock%}
+{% block main %}
+<script>
+    var fid = 0;
+</script>
+    <style>
+
+    </style>
+<div class="col-8 m-auto pt-2 pb-2 text-center" > Lista de Registros de Horas-Extras << Dinâmica >></div>
+<div class="col-14 m-auto pt-3 pb-2 text-center"  >
+		<form id="dinamic" class="d-flex px-1  col-md-12" method="POST">
+	        {% csrf_token %}
+			{{form}}
+			<button type="submit" class="btn btn-success" ><i class="fa fa-plus" ></i></button>
+		</form>
+</div>
+    <div class="col-14 m-auto pt-1 pb-1 text-center" >
+        <table class="table table-striped" >
+          <thead class="thead-dark" style="background-color: #e3b762">
+            <tr  style="Font-size: 11px;">
+               <th scope="col" style="width: 14%;">Status/Data</th>
+               <th scope="col" style="width: 21%;" >Funcionário</th>
+               <th scope="col" style="width: 30%;">Motivo </th>
+               <th scope="col" style="width: 17%;">Qtde.</th>
+               <th scope="col" style="width: 18%; ">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+  {% for registro_re in HE %}
+                <tr class="table-light" style="font-size: 12px;  width: 5%;" id="{{registro_re.id}}">
+                <th  scope="row" > {% if registro_re.utilizada %} <span style="color: red;"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path d="M436 160H12c-6.627 0-12-5.373-12-12v-36c0-26.51 21.49-48 48-48h48V12c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v52h128V12c0-6.627 5.373-12 12-12h40c6.627 0 12 5.373 12 12v52h48c26.51 0 48 21.49 48 48v36c0 6.627-5.373 12-12 12zM12 192h424c6.627 0 12 5.373 12 12v260c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V204c0-6.627 5.373-12 12-12zm333.296 95.947l-28.169-28.398c-4.667-4.705-12.265-4.736-16.97-.068L194.12 364.665l-45.98-46.352c-4.667-4.705-12.266-4.736-16.971-.068l-28.397 28.17c-4.705 4.667-4.736 12.265-.068 16.97l82.601 83.269c4.667 4.705 12.265 4.736 16.97.068l142.953-141.805c4.705-4.667 4.736-12.265.068-16.97z"/></svg
+                </span> {% else %}<span style="color: green;"> <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M311.7 374.7l-17 17c-4.7 4.7-12.3 4.7-17 0L224 337.9l-53.7 53.7c-4.7 4.7-12.3 4.7-17 0l-17-17c-4.7-4.7-4.7-12.3 0-17l53.7-53.7-53.7-53.7c-4.7-4.7-4.7-12.3 0-17l17-17c4.7-4.7 12.3-4.7 17 0l53.7 53.7 53.7-53.7c4.7-4.7 12.3-4.7 17 0l17 17c4.7 4.7 4.7 12.3 0 17L257.9 304l53.7 53.7c4.8 4.7 4.8 12.3.1 17zM448 112v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v52h48c26.5 0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"/></svg> </span>{% endif %} &nbsp;             <span scope="row" style="font-size: 9px;  width: 8%;">{{ registro_re.post}}</span></th>
+              <th  scope="row" style="Font-size: 11px; font-weight: bold; color: gray;  ">
+                        <div class="SelDiv">
+                            <select class="form-select func" name="funcionario" id="{{registro_re.id}}">
+                                {% for st in funcionario_list %}
+                                <option value="{{st.id}}"{% if registro_re.funcionario.id == st.id %}selected{% endif %}>{{st.nome}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+              </th>
+              <th  scope="row" style="Font-size: 11px; ">
+                  <div class="motivo" id="motivo{{registro_re.id}}" data-motivo="{{registro_re.id}}">{{registro_re.motivo}}</div>
+                        <form class="d-none f-motivo" id="form-motivo{{registro_re.id}}" method="GET" >
+                            <input class="form-control" type="text" id="inputText{{registro_re.id}}" value="{{registro_re.motivo}}">
+                            <button type="submit" class="btn"  id="edit_m{{registro_re.id}}"><i class="fa fa-edit link-primary"></i></button>
+                        </form>
+              </th>
+              <th  scope="row" {% if registro_re.utilizada %} style="color: red; font-weight: bold;" {% else %} style="color: green; font-weight: bold;" {% endif %}>
+                  <div class="horas"  id="horas{{registro_re.id}}" data-horas="{{registro_re.id}}">{{registro_re.horas}}</div>
+                        <form class="d-none d-flex f-horas" id="form-horas{{registro_re.id}}" method="GET" >
+                            <input class="form-control" type="number" id="inputnumber{{registro_re.id}}" value="{{registro_re.horas | floatformat:"2u" }}">
+                            <button type="submit" class="btn" id="edit_h{{registro_re.id}}"><i class="fa fa-edit link-warning"></i></button>
+                        </form>
+              </th>
+              <th style="text-align: center;"  scope="row" > </a> {% if not registro_re.utilizada %}<button title="Marcar / Utilizar" onclick="utiliza( {{registro_re.id}}, '/horas-extras/marca/','Registro de Hora-Extra','{{ registro_re.motivo}}')" class="btn btn-success" style="Font-size: 10px;  text-align: center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar2-check-fill" viewBox="0 0 16 16">
+  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zm9.954 3H2.545c-.3 0-.545.224-.545.5v1c0 .276.244.5.545.5h10.91c.3 0 .545-.224.545-.5v-1c0-.276-.244-.5-.546-.5zm-2.6 5.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+</svg></button> {% else %}<button title="Desmarcar Hora-Extra" onclick="utiliza( {{registro_re.id}}, '/horas-extras/desmarca/','Registro de Hora-Extra','{{ registro_re.motivo}}')" class="btn btn-secondary" style="Font-size: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
+  <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
+  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+</svg> </button>{% endif %} <button title="Excluir Hora-Extra" onclick="apaga( {{registro_re.id}}, '/horas-extras/delete/','Registro de Hora-Extra','{{ registro_re.motivo}}')" class="btn btn-danger btnDel" style="Font-size: 10px; "> <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+              </svg> </button>
+ </th>
+            </tr>
+ {% empty %}
+<span  style="color: red; font-size: 10px; fon-style: bold;"> Não Existem Horas Extras Registradas para esta Empresa</span><br>
+
+{% endfor %}
+           </tbody>
+        </table>
+
+</div>
+
+{% block scripts %}
+<script type="text/javascript">
+
+
+// Muda motivo do Item da Lista
+        $("div.motivo").click( function() {
+        var data_id = $(this).attr("data-motivo");
+        $("form#form-motivo" + data_id).removeClass('d-none')
+        $("form#form-motivo" + data_id).addClass('d-flex')
+        $("div#motivo" + data_id).addClass('d-none')
+
+        $('button#edit_m' + data_id).on("click", function (e) {
+            e.preventDefault();
+
+            motivo = $('input#inputText'+ data_id).val();
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "update-motivo" %}',
+                data: {'data_id': data_id,'motivo': motivo,},
+                datatype: "json",
+                success: function (data) {
+                        $("form#form-motivo" + data_id).addClass('d-none');
+                        $("div#motivo" + data_id).removeClass('d-none');
+                        $("div#motivo" + data_id).html(data.motivo);
+                }
+            });
+
+        });
+    })
+
+
+
+// Muda horas do Item da Lista
+        $('div.horas').click( function () {
+        var data_id = $(this).attr("data-horas");
+        $("form#form-horas" + data_id).removeClass('d-none')
+        $("div#horas" + data_id).addClass('d-none')
+
+        $('button#edit_h' + data_id).on("click", function (e) {
+            e.preventDefault();
+
+            horas = $('input#inputnumber'+ data_id).val();
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "update-horas" %}',
+                data: {'data_id': data_id,'horas': horas,},
+                datatype: "json",
+                success: function (data) {
+                        $("form#form-horas" + data_id).addClass('d-none');
+                        $("div#horas" + data_id).removeClass('d-none');
+                        $("#horas" + data_id).html(data.horas);
+                }
+            });
+
+        });
+    })
+
+	// Muda funcionario do Item da Lista
+    $("div.SelDiv select").on('change', function () {
+
+    var data_id = this.id;
+    var funcionario_id = $(this).find('option').filter(':selected').val();
+
+    console.log("data_id: ", data_id, "funcionario_id: ", funcionario_id)
+
+        $.ajax({
+            type: 'GET',
+            url: '{% url "update-funcionario" %}',
+            data: {
+                'data_id': data_id,
+                'funcionario_id': funcionario_id,
+            },
+            datatype: "json",
+
+            success: function (data) {
+                console.log(data);
+                bootbox.alert("O Funcionário foi alterado com sucesso!!!");
+            }
+
+        });
+    });
+
+function criou()
+{
+    window.alert("Registro de Hora-Extra criado com sucesso!!!");
+<!--    location.reload ();-->
+}
+
+</script>
+{% endblock scripts %}
+
+
+{% endblock %}

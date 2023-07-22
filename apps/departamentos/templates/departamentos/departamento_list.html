@@ -14,36 +14,26 @@
 {% block title %}Departamentos (Lista){%endblock%}
 {% block main %}
      {% for departamento in object_list %}
-     <table style="align-content: center;" width="100%">
-      <tbody style="height: 30px; border: 1; border-style: solid; border-color: #fcf9df;" >
-      <tr>
-        <th style="width: 50%">   &nbsp;
+     <form  method="post">
+      <div class="border-bottom  rounded btn btn-light d-flex flex-row" style="text-align: center; width:100%; height: 55px; border: 1; border-style: solid; border-color: #fcf9df; " >
             <a style="color: red; align: BOTTOM; " href="{% url  'delete-departamento'  departamento.id%}"  >
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" fill="currentColor" class="bi bi-file-earmark-x" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-file-earmark-x" viewBox="0 0 16 16">
                     <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z"/>
                      <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
                  </svg>
-            </a>
+            </a>|
             <a style="font-size: 15px;" href="{% url  'edit-departamento'  departamento.id %}">
             <span style="font-style: bold; color: gray;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                   <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                   <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                </svg>
-            </span> {{ departamento }}
-            </a><br>
-        </th>
-          <th><span style="align-text: left; height: 10px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 12px;'">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+            </span> {{ departamento }} </a> <span style="heigh: 7px; float: right; "><span class="container-fluid" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 10px;'"> {%if departamento.encarregado%}  {{ departamento.encarregado }}&nbsp; <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
   <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
   <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
-</svg> | {{ departamento.encarregado }}</span></th>
-      </tr>
-      </tbody>
-     </table>
-
-
-
-
-
+</svg> {%endif%}</span> {%if departamento.localizacao%}<span style="text-align: right; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #6d8295; font-size: 10px;'"> <br>{{ departamento.localizacao }}&nbsp;  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+            </svg>  </span>{%endif%}</span>
+      </div></form>
 {% endfor %}
 {% endblock %}

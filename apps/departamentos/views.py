@@ -1,6 +1,9 @@
+from django.http import request
 
+from .forms import DepartamentoForm
 from django.urls import reverse_lazy
-from django.views.generic import ListView, UpdateView, DeleteView, CreateView
+from django.views.generic import ListView, \
+    UpdateView, DeleteView, CreateView, View
 from .models import Departamento
 
 
@@ -14,7 +17,7 @@ class DepartamentosList(ListView):
 
 class DepartamentoNovo(CreateView):
      model = Departamento
-     fields = ['nome', 'encarregado', 'localizacao']
+     form_class = DepartamentoForm
 
      def form_valid(self, form):
          departamento = form.save(commit=False)
@@ -25,9 +28,16 @@ class DepartamentoNovo(CreateView):
 
 class DepartamentoEdit(UpdateView):
      model = Departamento
-     fields = ['nome', 'encarregado', 'localizacao']
+     form_class = DepartamentoForm
 
 
 class DepartamentoDelete(DeleteView):
      model = Departamento
      success_url =  reverse_lazy('list-departamentos')
+
+
+class Exclui_depto(View):
+    def delete(request, pk):
+        db = Departamento.objects.get(pk=pk)
+        db.delete()
+        return HttpResponseRedirect(reverse('home'))

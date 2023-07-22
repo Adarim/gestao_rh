@@ -5514,9 +5514,6 @@ button.bg-dark:focus {
   clear: both;
   content: ""; }
 
-.d-none {
-  display: none !important; }
-
 .d-inline {
   display: inline !important; }
 
@@ -5534,11 +5531,6 @@ button.bg-dark:focus {
 
 .d-table-cell {
   display: table-cell !important; }
-
-.d-flex {
-  display: -webkit-box !important;
-  display: -ms-flexbox !important;
-  display: flex !important; }
 
 .d-inline-flex {
   display: -webkit-inline-box !important;
@@ -8292,3 +8284,100 @@ a[data-toggle="collapse"] {
     border-style: dotted;
     border-color: lightgray;
 }
+
+.gestao {
+    font-size: 14px;
+    margin: 1%x;
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: #fcf9df;"
+}
+
+.gestao input[type=text], .gestao input[type=number], .gestao input[type=password], .gestao select {
+  width: 100%;
+  font-size: 14px;
+  padding: 5px 20px;
+  margin: 3px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  color: #c17e33;
+  background-color: #f9fbfb;
+}
+
+.gestao input[type=text]:focus, .gestao input[type=number]:focus, .gestao select:focus {
+  color: #915109;
+  background-color: #e7ebf1;
+}
+
+#dinamic {
+		font-size: 12px;
+		}
+
+#dinamic input[type=text] {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+          margin: 4px;
+          width: 40%;
+		  font-size: 12px; }
+
+#dinamic input[type=number] {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+		  margin: 4px;
+		  font-size: 12px;
+		  width: 65px; }
+
+#dinamic select {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+		  margin: 4px;
+		  font-size: 12px;
+		  width: 30%; }
+
+#dinamic label {
+          color: lightgray;
+		  margin: 4px;
+		  font-size: 12px;
+	}
+
+.f-motivo {
+		font-size: 10px;
+		}
+
+.f-motivo input[type=text] {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+          height: 22px;
+ 		  font-size: 11px; }
+
+.f-horas {
+		font-size: 10px;
+		}
+
+.f-horas input[type=number]  {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+		  font-size: 10px;
+		  height: 23px;		  }
+
+.func {
+		font-size: 9px;
+		}
+
+.func select  {
+          box-sizing: border-box;
+          border-radius: 4px;
+          color: #c17e33;
+          background-color: #f9fbfb;
+		  font-size: 8px;
+		  }

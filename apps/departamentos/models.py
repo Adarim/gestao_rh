@@ -4,7 +4,7 @@ from apps.empresas.models import  Empresa
 
 
 class Departamento(models.Model):
-    nome = models.CharField(max_length=70, help_text='Nome do Departamento')
+    nome = models.CharField(max_length=70)
     empresa =  models.ForeignKey(Empresa, on_delete=models.PROTECT)
     encarregado = models.CharField(max_length=50,  null=True, blank=True)
     localizacao = models.CharField(max_length=100,  null=True, blank=True)
