@@ -10,6 +10,7 @@ class FuncionarioForm(ModelForm):
         super(FuncionarioForm, self).__init__(*args, **kwargs)
         self.fields['departamentos'].queryset = Departamento.objects.filter(
             empresa=user.funcionario.empresa)
+        self.fields['fone'].widget.attrs.update({'class': 'mask-fone'})
 
     class Meta:
         model = Funcionario

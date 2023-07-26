@@ -42,7 +42,6 @@ class FuncionarioEdit(UpdateView):
         kwargs.update({'user': self.request.user})
         return kwargs
 
-
 class FuncionarioDelete(DeleteView):
     model = Funcionario
     success_url = reverse_lazy('list-funcionarios')

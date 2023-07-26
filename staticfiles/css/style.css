@@ -8329,7 +8329,7 @@ a[data-toggle="collapse"] {
           background-color: #f9fbfb;
 		  margin: 4px;
 		  font-size: 12px;
-		  width: 65px; }
+		  width: 80px; }
 
 #dinamic select {
           box-sizing: border-box;
@@ -8341,10 +8341,19 @@ a[data-toggle="collapse"] {
 		  width: 30%; }
 
 #dinamic label {
-          color: lightgray;
+          color: black;
 		  margin: 4px;
 		  font-size: 12px;
 	}
+
+#dinamic input[type=text]:focus,
+#dinamic input[type=number]:focus,
+#dinamic select:focus {
+  color: #915109;
+  background-color: #e7ebf1;
+}
+
+
 
 .f-motivo {
 		font-size: 10px;

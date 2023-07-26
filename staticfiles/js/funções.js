@@ -146,3 +146,6 @@ bootbox.confirm({  message: mens ,
 }
 )
 
+$(function(){
+    $('.mask-fone').mask('(00) 00000-0000');
+});

@@ -1,19 +1,29 @@
 import json
-from django.http import HttpResponse, request, JsonResponse
+
+from django.core.paginator import Paginator
+from django.http import HttpResponse,  JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
 from .models import RegistroHoraExtra
 from .forms import RegistroHoraExtraForm, RegFunHEForm, LoteHEForm
 from ..funcionarios.models import Funcionario
+from django.db.models import Sum, Count
 
 
 class HoraExtraList(ListView):
     model = RegistroHoraExtra
+    context_object_name = 'Registro Hora-Extra'
+    paginate_by = 8
 
     def get_queryset(self):
         empresa_logada = self.request.user.funcionario.empresa
-        return RegistroHoraExtra.objects.filter(funcionario__empresa=empresa_logada)
+        txt_motivo = self.request.GET.get('pmotivo')
+        if txt_motivo:
+            he = RegistroHoraExtra.objects.filter(funcionario__empresa=empresa_logada, motivo__icontains=txt_motivo)
+        else:
+            he = RegistroHoraExtra.objects.filter(funcionario__empresa=empresa_logada)
+        return he
 
 
 class HoraExtraNovo(CreateView):
@@ -115,18 +125,44 @@ def desmarca(request, pk):
     return redirect('list-hora-extra')
 
 
-def HoraExtraLote(request,  *args, **kwargs):
-    HE = RegistroHoraExtra.objects.filter(funcionario__empresa=kwargs['pk']) # Query com todos objetos da lista
+def HoraExtraLote(request, *args, **kwargs):
+    txt_motivo = request.GET.get('pmotivo')
+    txt_status = request.GET.get('status')
+    txt_func = request.GET.get('pfunc')
+    txt_ad = request.GET.get('vad')
+    txt_pq = request.GET.get('vpq')
+    if txt_ad != False: txt_ad = True
+    if txt_pq != False: txt_pq = True
+
+    he = RegistroHoraExtra.objects.filter(funcionario__empresa=kwargs['pk'])
+    if txt_motivo:
+       he=he.filter(motivo__icontains=txt_motivo)
+    if txt_func:
+       he=he.filter(funcionario__id=txt_func)
+    if txt_status != 'Todas':
+        if txt_status == 'Usadas':
+            he = he.filter(utilizada=True)
+        else:
+            he = he.filter(utilizada=False)
+
+    tot_lib = he.filter(utilizada=False).aggregate(Sum('horas'))['horas__sum']
+    tot_util = he.filter(utilizada=True).aggregate(Sum('horas'))['horas__sum']
+    tot_enc= he.count()
+
     funcionario_list = Funcionario.objects.filter(empresa_id=kwargs['pk'])
-    if request.method == "POST": # para POST
+    if request.method == "POST":
         form = LoteHEForm(request.POST)
         if form.is_valid():
-            form.save() # salva informação
-            return redirect('/horas-extras/lote/'+kwargs['pk'])
+            form.save()
+            return redirect('list-hora-ajax', kwargs['pk'])
+
+    paginator = Paginator(he, 7)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     form = LoteHEForm() # Formulário
-    context = {"form" : form, 'HE': HE, 'funcionario_list': funcionario_list}
-    return render(request, 'registro_hora_extra/registrohoraextra_ajax.html', context)
+    context = {"form" : form, 'funcionario_list': funcionario_list, 'tl' : tot_lib, 'tu' : tot_util, 'te' : tot_enc,  "page_obj": page_obj}
+    return render(request, 'registro_hora_extra/registrohoraextra_ajax.html',  context)
 
 
 def update_motivo(request):
@@ -167,4 +203,6 @@ def update_funcionario(request):
 
     data = {'funcionario':funcionario_id}
     return JsonResponse(data)
+
+
 

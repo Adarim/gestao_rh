@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import RegistroHoraExtra
-from apps.funcionarios.models import Funcionario
+from .models import RegistroHoraExtra, Funcionario
 from django import forms
+from django.db.models.fields import BLANK_CHOICE_DASH
 
 
 class RegistroHoraExtraForm(ModelForm):
@@ -29,12 +29,27 @@ class RegFunHEForm(ModelForm):
 
 
 class LoteHEForm(forms.ModelForm):
-    motivo = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Motivo da Hora-Extra...'}))
+    motivo = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Descrição(Motivo)...'}))
     horas = forms.DecimalField(label='', widget=forms.NumberInput(attrs={'placeholder': 'Horas'}))
 
     class Meta:
         model = RegistroHoraExtra
         fields = ('motivo',  'horas', 'funcionario',)
+        exclude = ('utilizada',)
+
+    def __init__(self, *args, **kwargs): # Adiciona
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+              field.widget.attrs['class'] = 'form-control'
+
+
+class LoteHEPesqForm(forms.ModelForm):
+    motivo = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Descrição(Motivo)...'}))
+
+
+    class Meta:
+        model = RegistroHoraExtra
+        fields = ('motivo', 'funcionario',)
         exclude = ('utilizada',)
 
     def __init__(self, *args, **kwargs): # Adiciona
