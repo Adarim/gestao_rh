@@ -28,6 +28,7 @@
 			<button type="submit" class="btn btn-success" ><i class="fa fa-plus" ></i></button>
 		</form></div>
 </div>
+
 {% if request.GET.vpq %}
 <div x-data="{mpq:true}" class="d-block bg-light text-white"> {% else %}
 <div x-data="{mpq:true}"  class="d-block bg-light text-white"> {% endif %}
@@ -47,7 +48,7 @@
                                 {% endfor %}
                             </select>
        <fieldset  class="btn btn info pt-1 top" value="{{ request.GET.status }}" style="width: 45%; height: 8px; font-size: 7px; ">
-   {% if request.GET.status == 'Todas' %}
+   {% if request.GET.status == 'Todas' or not request.GET.status%}
       <input type="radio" id="ptds" name="status" value="Todas" checked>&nbsp;
       <label for="ptds">TODAS</label>
        <input type="radio" id="pusd" name="status" value="Usadas">&nbsp;
